@@ -54,4 +54,8 @@ def root_s(request, session_data):
             "tutors": tutors[0:3],
             "notifications": notifications[0:4]
         }
-        return templates.TemplateResponse("dashboard.html", context)
+        return templates.TemplateResponse(
+            request=request,
+            name="dashboard.html",
+            context=context
+        )
