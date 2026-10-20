@@ -51,14 +51,16 @@ async function main() {
 	function collectFeedback(notificationEl, fields) {
 		const result = {};
 		fields.forEach((f) => {
-			const name = `input-${f.id}`;
+			const inputName = `input-${f.id}`;
 			if (f.type === "single-choice") {
 				const checked = notificationEl.querySelector(
-					`input[name="${name}"]:checked`
+					`input[name="${inputName}"]:checked`
 				);
 				result[String(f.id)] = checked ? checked.value : "";
 			} else {
-				const input = notificationEl.querySelector(`input[name="${name}"]`);
+				const input = notificationEl.querySelector(
+					`input[name="${inputName}"]`
+				);
 				result[String(f.id)] = input ? input.value : "";
 			}
 		});

@@ -418,7 +418,7 @@ async function clickOnUserCard(id) {
 
 	openModal(`
 		<h2>
-			Benutzer ${data.user.username} - Details
+			Benutzer ${escapeHtml(data.user.username)} - Details
 			${DEV_MODE ? `<span class="fetch-hint" id="fetch-hint-1"></span>` : ""}
 			${DEV_MODE ? `<span class="fetch-hint" id="fetch-hint-2"></span>` : ""}
 			${DEV_MODE ? `<span class="fetch-hint" id="fetch-hint-3"></span>` : ""}
@@ -430,7 +430,7 @@ async function clickOnUserCard(id) {
 				.map(
 					(role) =>
 						`<option value="${role.id}" ${role.id == data.user.role_id ? "selected" : ""}>
-					${role.german_name}
+					${escapeHtml(role.german_name)}
 				</option>`
 				)
 				.join("")}
@@ -443,16 +443,16 @@ async function clickOnUserCard(id) {
 					`<option value="${cls.id}" ${
 						cls.id == data.user.class_id ? "selected" : ""
 					}>
-					${cls.name}
+					${escapeHtml(cls.name)}
 				</option>`
 			)}
 		</select>
 		<label for="username">Benutzername:</label>
-		<input type="text" id="username" value="${data.user.username}" ${DEV_MODE ? `placeholder="username"` : ""} />
+		<input type="text" id="username" value="${escapeHtml(data.user.username)}" ${DEV_MODE ? `placeholder="username"` : ""} />
 		<label for="firstname">Vorname:</label>
-		<input type="text" id="firstname" value="${data.user.firstname}" ${DEV_MODE ? `placeholder="firstname"` : ""} />
+		<input type="text" id="firstname" value="${escapeHtml(data.user.firstname)}" ${DEV_MODE ? `placeholder="firstname"` : ""} />
 		<label for="lastname">Nachname:</label>
-		<input type="text" id="lastname" value="${data.user.lastname}" ${DEV_MODE ? `placeholder="lastname"` : ""} /><br /><br />
+		<input type="text" id="lastname" value="${escapeHtml(data.user.lastname)}" ${DEV_MODE ? `placeholder="lastname"` : ""} /><br /><br />
 		<button id="save-user-btn">Änderungen speichern</button>
 		<button id="reset-password-btn">Passwort zurücksetzen</button>
 		<button id="delete-user-btn" class="destructive">Benutzer löschen</button>
@@ -615,7 +615,7 @@ async function addUser() {
 				.map(
 					(role) =>
 						`<option value="${role.id}">
-					${role.german_name}
+					${escapeHtml(role.german_name)}
 				</option>`
 				)
 				.join("")}
@@ -626,7 +626,7 @@ async function addUser() {
 			${classesData.classes.map(
 				(cls) =>
 					`<option value="${cls.id}">
-					${cls.name}
+					${escapeHtml(cls.name)}
 				</option>`
 			)}
 		</select>
@@ -1434,8 +1434,8 @@ async function clickOnParentNotificationCard(id) {
 					if (!userResponse.ok) throw new Error();
 					const userData = await userResponse.json();
 					return [
-						userData.user.username,
-						`${userData.user.firstname} ${userData.user.lastname}`
+						escapeHtml(userData.user.username),
+						`${escapeHtml(userData.user.firstname)} ${escapeHtml(userData.user.lastname)}`
 					];
 				} catch (error) {
 					return `ID ${userId}`;
